@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::name('Auth.')->prefix('/login')->group(function () {
-    Route::get('/', 'LoginController@index')->name('login');
-    Route::post('/login', 'LoginController@login')->name('submit');
-    Route::post('/register', 'LoginController@login')->name('register');
+Route::name('Auth.')->group(function () {
+    Route::name('Login.')->prefix('/login')->group(function () {
+        Route::get('/', 'AuthController@login')->name('login');
+        Route::post('/login', 'AuthController@loginSubmit')->name('submit');
+
+    });
+
+    Route::name('Register.')->prefix('/register')->group(function () {
+        Route::get('/', 'AuthController@register')->name('register');
+        Route::post('/login', 'AuthController@registerSubmit')->name('submit');
+    });
+
 });
