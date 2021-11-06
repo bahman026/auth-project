@@ -13,4 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::name('Login')->group(function () {
+    Route::get('/',function (){
+       return view('welcome');
+    });
+});
