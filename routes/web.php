@@ -23,7 +23,9 @@ Route::name('Auth.')->group(function () {
 
     Route::name('Register.')->prefix('/register')->group(function () {
         Route::get('/', 'AuthController@register')->name('register');
-        Route::post('/login', 'AuthController@registerSubmit')->name('submit');
+        Route::post('/submit', 'AuthController@registerSubmit')->name('submit');
     });
+
+    
 
 });
