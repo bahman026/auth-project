@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     //
-    public function login()
+    public function index()
     {
-        return 'index';
+        return view('login.login');
+    }
+    public function login(){
+        dd("tset");
     }
 }
