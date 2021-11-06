@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/base.css') }}" rel="stylesheet">
-    <title>welcome</title>
+@extends('html-content')
 
-</head>
-<body>
+@section('content')
 
-<div class="alert alert-success">
-    welcome
-</div>
+    <div class="alert alert-success">
+        welcome
+    </div>
 
-</body>
-</html>
+@endsection
