@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::name('Login.')->prefix('/login')->group(function () {
+Route::name('Auth.')->prefix('/login')->group(function () {
     Route::get('/', 'LoginController@index')->name('login');
     Route::post('/login', 'LoginController@login')->name('submit');
+    Route::post('/register', 'LoginController@login')->name('register');
 });
