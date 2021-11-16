@@ -13,19 +13,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/*
+Route::get('/', function () {
+    return view('welcome');
+});*/
 
-Route::name('Auth.')->group(function () {
-    Route::name('Login.')->prefix('/login')->group(function () {
-        Route::get('/', 'AuthController@login')->name('login');
-        Route::post('/login', 'AuthController@loginSubmit')->name('submit');
 
-    });
 
-    Route::name('Register.')->prefix('/register')->group(function () {
-        Route::get('/', 'AuthController@register')->name('register');
-        Route::post('/submit', 'AuthController@registerSubmit')->name('submit');
-    });
 
-    
+Route::get('/', function () {
+    return response(['message'=>'true']);
+})->middleware('auth:sanctum');
 
-});
+Route::post('/register', [AuthController::class, 'register'])->name('login.api');
+Route::post('/login', [AuthController::class, 'login'])->name('login.api');
+
+// Manager
+
+

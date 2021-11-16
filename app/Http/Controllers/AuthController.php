@@ -10,44 +10,33 @@ class AuthController extends Controller
 {
 
 
-    public function login()
+
+    public function register(Request $request)
     {
-        return view('login.login');
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $user->token = $user->createToken('MyApp')->plainTextToken;
+
+        return response(['message' => 'User registered successfully.', 'user' => $user]);
     }
-
-    public function loginSubmit(Request $request)
+    /**
+     * Login api
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
     {
-
-
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
-            dd($user);
+            $user->token = $user->createToken('MyApp')->plainTextToken;
+
+            return response(['message' => 'User logged in successfully.', 'user' => $user]);
         }
-
-
-        $email = $request['email'];
-        $password = $request['password'];
-
-    }
-
-    public function register()
-    {
-        return view('login.register');
-    }
-
-    public function registerSubmit(Request $request)
-    {
-
-        $user['name'] = $request['name'];
-        $user['email'] = $request['email'];
-        $user['password'] = bcrypt($request['password']);
-        $user = User::create($user);
-        $token = $user->createToken('MyTokenName');
-        dd($token->plainTextToken);
-
-
-        $email = $request['email'];
-        $password = $request['password'];
-
+        else{
+            return response(['message' => 'These credentials do not match our records.'], 422);
+        }
     }
 }
+
